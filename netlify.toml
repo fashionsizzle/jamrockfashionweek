@@ -1,0 +1,13 @@
+# Netlify configuration for the Next.js App Router site.
+# The official plugin provides the Next.js runtime (SSR routes, the OG image
+# route, sitemap/robots, and static assets). Netlify auto-installs it, but
+# declaring it here makes the build explicit.
+
+[build]
+  command = "npm run build"
+
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
+
+[build.environment]
+  NODE_VERSION = "22"
