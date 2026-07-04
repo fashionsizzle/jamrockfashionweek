@@ -1,0 +1,177 @@
+@import "tailwindcss";
+
+/* ================================================================== */
+/*  JAMROCK FASHION WEEK — editorial runway archive                    */
+/*  Bone paper, warm ink, hairline rules, film grain. No gradients.    */
+/* ================================================================== */
+@theme {
+  --color-paper: #f2efe9;
+  --color-paper-dim: #e9e5dd;
+  --color-ink: #16130f;
+  --color-ink-soft: #4b463f;
+  --color-ink-faint: #8c867b;
+  --color-line: #cbc6bc;
+  --color-noir: #0d0b09;
+  --color-noir-soft: #1a1714;
+  --color-bordeaux: #6a1f2b;
+
+  --font-display: var(--font-playfair), Georgia, "Times New Roman", serif;
+  --font-grotesk: ui-sans-serif, "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+  --tracking-label: 0.26em;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    background-color: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-grotesk);
+    font-size: 16px;
+    line-height: 1.55;
+  }
+
+  ::selection {
+    background-color: var(--color-ink);
+    color: var(--color-paper);
+  }
+
+  /* Keyboard focus — currentColor adapts to light/dark sections */
+  :where(a, button, input, textarea, [tabindex]):focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 3px;
+    border-radius: 1px;
+  }
+  :where(main):focus {
+    outline: none;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    line-height: 0.98;
+  }
+}
+
+@layer components {
+  /* Small tracked grotesk label — magazine kicker */
+  .label {
+    font-family: var(--font-grotesk);
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-label);
+    color: var(--color-ink-faint);
+  }
+
+  /* Underlined editorial link with travelling rule */
+  .editorial-link {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--font-grotesk);
+    font-size: 0.78rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    color: var(--color-ink);
+    padding-bottom: 0.35rem;
+  }
+  .editorial-link::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 1px;
+    width: 100%;
+    background: currentColor;
+    transform-origin: left;
+    transform: scaleX(1);
+    transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .editorial-link:hover::after {
+    transform: scaleX(0);
+    transform-origin: right;
+  }
+
+  /* Hairline divider */
+  .rule {
+    height: 1px;
+    width: 100%;
+    background-color: var(--color-line);
+  }
+
+  /* Accessible skip link — hidden until focused */
+  .skip-link {
+    position: fixed;
+    left: 1rem;
+    top: -120px;
+    z-index: 200;
+    background-color: var(--color-ink);
+    color: var(--color-paper);
+    padding: 0.7rem 1.2rem;
+    font-family: var(--font-grotesk);
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    transition: top 0.2s ease;
+  }
+  .skip-link:focus {
+    top: 1rem;
+  }
+}
+
+/* Film grain — feTurbulence noise, applied as a fixed overlay.        */
+/* No gradients; just monochrome luminance noise at low opacity.       */
+.grain::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity: 0.05;
+  mix-blend-mode: multiply;
+}
+
+/* Dark plates use screen blend so grain reads as light dust */
+.grain-dark::before {
+  mix-blend-mode: screen;
+  opacity: 0.07;
+}
+
+.font-display {
+  font-family: var(--font-display);
+}
+.font-grotesk {
+  font-family: var(--font-grotesk);
+}
+
+/* Cover-fit YouTube background — the 16:9 iframe is scaled to fill the hero  */
+/* on any aspect ratio (cropping rather than letterboxing).                   */
+.hero-video {
+  overflow: hidden;
+  pointer-events: none;
+}
+.hero-video iframe {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100vw;
+  height: 56.25vw; /* 16:9 of width */
+  min-width: 177.78vh; /* 16:9 of height */
+  min-height: 100vh;
+  border: 0;
+  pointer-events: none;
+}
