@@ -42,8 +42,16 @@ function Underline({
   );
 }
 
+function encode(data: Record<string, string>) {
+  return Object.keys(data)
+    .map((k) => `${encodeURIComponent(k)}=${encodeURIComponent(data[k])}`)
+    .join("&");
+}
+
 export function Rsvp() {
   const [sent, setSent] = React.useState(false);
+  const [pending, setPending] = React.useState(false);
+  const [error, setError] = React.useState(false);
 
   return (
     <section
@@ -112,15 +120,40 @@ export function Rsvp() {
               ) : (
                 <motion.form
                   key="form"
+                  name="rsvp"
+                  data-netlify="true"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0, y: -8 }}
-                  onSubmit={(e) => {
+                  onSubmit={async (e) => {
                     e.preventDefault();
-                    setSent(true);
+                    setPending(true);
+                    setError(false);
+                    const data: Record<string, string> = {
+                      "form-name": "rsvp",
+                    };
+                    new FormData(e.currentTarget).forEach((value, key) => {
+                      data[key] = String(value);
+                    });
+                    try {
+                      const res = await fetch("/__forms.html", {
+                        method: "POST",
+                        headers: {
+                          "Content-Type": "application/x-www-form-urlencoded",
+                        },
+                        body: encode(data),
+                      });
+                      if (!res.ok) throw new Error(`${res.status}`);
+                      setSent(true);
+                    } catch {
+                      setError(true);
+                    } finally {
+                      setPending(false);
+                    }
                   }}
                   className="space-y-10"
                 >
+                  <input type="hidden" name="form-name" value="rsvp" />
                   {FIELDS.map((f) => (
                     <Underline key={f.name} {...f} />
                   ))}
@@ -136,12 +169,20 @@ export function Rsvp() {
                     />
                   </label>
 
+                  {error && (
+                    <p className="font-grotesk text-sm text-bordeaux">
+                      Something went wrong sending your request. Please try
+                      again, or email us directly.
+                    </p>
+                  )}
+
                   <button
                     type="submit"
-                    className="group inline-flex items-center gap-3 pt-2"
+                    disabled={pending}
+                    className="group inline-flex items-center gap-3 pt-2 disabled:opacity-50"
                   >
                     <span className="font-grotesk text-xs font-semibold uppercase tracking-[0.2em]">
-                      Submit request
+                      {pending ? "Sending…" : "Submit request"}
                     </span>
                     <span className="inline-block transition-transform duration-500 group-hover:translate-x-2">
                       →
