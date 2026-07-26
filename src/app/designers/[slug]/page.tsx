@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { Reveal } from "@/components/reveal";
 import { Plate } from "@/components/plate";
 import { Footer } from "@/components/site/footer";
+import { SubHeader } from "@/components/site/sub-header";
 import {
   DESIGNERS,
   getDesigner,
@@ -29,24 +30,6 @@ export async function generateMetadata({
   };
 }
 
-function SubHeader() {
-  return (
-    <header className="fixed inset-x-0 top-0 z-50 bg-paper/85 backdrop-blur-sm">
-      <div className="mx-auto flex max-w-[1400px] items-center justify-between border-b border-line px-6 py-5 sm:px-10">
-        <Link href="/" className="font-display text-lg leading-none">
-          Jamrock
-          <span className="ml-1.5 align-middle font-grotesk text-[0.6rem] font-semibold uppercase tracking-[0.24em] text-ink-faint">
-            Fashion Week
-          </span>
-        </Link>
-        <Link href="/#designers" className="editorial-link">
-          All designers
-        </Link>
-      </div>
-    </header>
-  );
-}
-
 const LOOK_LAYOUT = [
   "lg:col-span-7",
   "lg:col-span-5 lg:mt-16",
@@ -68,7 +51,7 @@ export default async function DesignerPage({
 
   return (
     <>
-      <SubHeader />
+      <SubHeader backHref="/#designers" backLabel="All designers" />
       <main
         id="main-content"
         tabIndex={-1}

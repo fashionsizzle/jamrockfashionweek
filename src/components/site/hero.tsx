@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { motion, useReducedMotion } from "motion/react";
 import { HeroVideo } from "@/components/site/hero-video";
 import { EVENT } from "@/lib/content";
@@ -79,12 +80,12 @@ export function Hero() {
           <a href="#rsvp" className="editorial-link text-paper">
             Request an invitation
           </a>
-          <a
-            href="#schedule"
+          <Link
+            href="/schedule"
             className="font-grotesk text-xs font-semibold uppercase tracking-[0.16em] text-paper/70 transition-colors hover:text-paper"
           >
             See the schedule
-          </a>
+          </Link>
         </motion.div>
 
         {/* baseline meta row */}

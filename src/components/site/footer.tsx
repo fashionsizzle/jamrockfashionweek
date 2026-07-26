@@ -1,9 +1,17 @@
+import Link from "next/link";
 import { EVENT, NAV } from "@/lib/content";
 
 const SOCIAL = [
   { label: "Instagram", href: "#" },
   { label: "TikTok", href: "#" },
   { label: "Newsletter", href: "#" },
+];
+
+const LEGAL = [
+  { label: "Privacy Policy", href: "/legal/privacy" },
+  { label: "Terms of Service", href: "/legal/terms" },
+  { label: "Cookie Policy", href: "/legal/cookies" },
+  { label: "Accessibility", href: "/legal/accessibility" },
 ];
 
 export function Footer() {
@@ -29,16 +37,27 @@ export function Footer() {
               Index
             </p>
             <ul className="mt-5 space-y-3">
-              {[...NAV, { label: "RSVP", href: "#rsvp" }].map((n) => (
-                <li key={n.href}>
-                  <a
-                    href={n.href}
-                    className="font-display text-xl text-paper/85 transition-colors hover:text-paper"
-                  >
-                    {n.label}
-                  </a>
-                </li>
-              ))}
+              {[...NAV, { label: "RSVP", href: "#rsvp" }].map((n) =>
+                n.href.startsWith("#") ? (
+                  <li key={n.href}>
+                    <a
+                      href={n.href}
+                      className="font-display text-xl text-paper/85 transition-colors hover:text-paper"
+                    >
+                      {n.label}
+                    </a>
+                  </li>
+                ) : (
+                  <li key={n.href}>
+                    <Link
+                      href={n.href}
+                      className="font-display text-xl text-paper/85 transition-colors hover:text-paper"
+                    >
+                      {n.label}
+                    </Link>
+                  </li>
+                ),
+              )}
             </ul>
           </nav>
 
@@ -61,10 +80,22 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="flex flex-col gap-3 border-t border-white/15 py-8 sm:flex-row sm:items-center sm:justify-between">
+        <div className="flex flex-col gap-6 border-t border-white/15 py-8 sm:flex-row sm:items-center sm:justify-between">
           <p className="font-grotesk text-xs uppercase tracking-[0.18em] text-paper/40">
             © {EVENT.year} Jamrock Fashion Week
           </p>
+          <ul className="flex flex-wrap items-center gap-x-6 gap-y-2">
+            {LEGAL.map((l) => (
+              <li key={l.href}>
+                <Link
+                  href={l.href}
+                  className="font-grotesk text-xs uppercase tracking-[0.18em] text-paper/40 transition-colors hover:text-paper/70"
+                >
+                  {l.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
           <p className="font-grotesk text-xs uppercase tracking-[0.18em] text-paper/40">
             Kingston · Jamaica
           </p>

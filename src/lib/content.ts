@@ -13,8 +13,8 @@ export const NAV = [
   { label: "Shows", href: "#shows" },
   { label: "Designers", href: "#designers" },
   { label: "Looks", href: "#looks" },
-  { label: "Schedule", href: "#schedule" },
-  { label: "Press", href: "#press" },
+  { label: "Schedule", href: "/schedule" },
+  { label: "Press", href: "/press" },
 ] as const;
 
 export type Designer = {

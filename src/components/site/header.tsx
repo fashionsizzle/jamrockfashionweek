@@ -1,9 +1,35 @@
 "use client";
 
 import * as React from "react";
+import Link from "next/link";
 import { AnimatePresence, motion, useScroll } from "motion/react";
 import { NAV, EVENT } from "@/lib/content";
 import { cn } from "@/lib/utils";
+
+function NavLink({
+  href,
+  className,
+  onClick,
+  children,
+}: {
+  href: string;
+  className?: string;
+  onClick?: () => void;
+  children: React.ReactNode;
+}) {
+  if (href.startsWith("#")) {
+    return (
+      <a href={href} className={className} onClick={onClick}>
+        {children}
+      </a>
+    );
+  }
+  return (
+    <Link href={href} className={className} onClick={onClick}>
+      {children}
+    </Link>
+  );
+}
 
 const HEADER_H = 68;
 
@@ -119,7 +145,7 @@ export function Header() {
 
           <nav className="hidden items-center gap-9 md:flex">
             {NAV.map((item) => (
-              <a
+              <NavLink
                 key={item.href}
                 href={item.href}
                 className={cn(
@@ -130,7 +156,7 @@ export function Header() {
                 )}
               >
                 {item.label}
-              </a>
+              </NavLink>
             ))}
             <a
               href="#rsvp"
@@ -177,20 +203,25 @@ export function Header() {
 
             <nav className="mt-12 flex flex-col gap-2 px-6 sm:px-10">
               {[...NAV, { label: "RSVP", href: "#rsvp" }].map((item, i) => (
-                <motion.a
+                <motion.div
                   key={item.href}
-                  href={item.href}
-                  onClick={() => setOpen(false)}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.1 + i * 0.06, duration: 0.5 }}
-                  className="flex items-baseline justify-between border-b border-white/15 py-5"
                 >
-                  <span className="font-display text-4xl">{item.label}</span>
-                  <span className="font-grotesk text-xs tracking-[0.2em] text-white/40">
-                    0{i + 1}
-                  </span>
-                </motion.a>
+                  <NavLink
+                    href={item.href}
+                    onClick={() => setOpen(false)}
+                    className="flex items-baseline justify-between border-b border-white/15 py-5"
+                  >
+                    <span className="font-display text-4xl">
+                      {item.label}
+                    </span>
+                    <span className="font-grotesk text-xs tracking-[0.2em] text-white/40">
+                      0{i + 1}
+                    </span>
+                  </NavLink>
+                </motion.div>
               ))}
             </nav>
 

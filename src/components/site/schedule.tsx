@@ -8,9 +8,9 @@ export function Schedule() {
       className="mx-auto mt-32 max-w-[1400px] px-6 sm:mt-44 sm:px-10"
     >
       <div className="flex flex-wrap items-end justify-between gap-6 border-t border-line pt-10">
-        <h2 className="font-display text-5xl leading-[0.95] tracking-[-0.02em] sm:text-7xl">
+        <h1 className="font-display text-5xl leading-[0.95] tracking-[-0.02em] sm:text-7xl">
           Schedule
-        </h2>
+        </h1>
         <p className="label max-w-xs pb-2 lg:text-right">
           IV — Five evenings, fourteen venues. Times are local to Kingston.
         </p>
