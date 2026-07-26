@@ -53,6 +53,33 @@ function Entry({ d, layout }: { d: Designer; layout: EntryLayout }) {
   );
 }
 
+function ApplyBox() {
+  return (
+    <Reveal className="group lg:col-span-4 lg:col-start-9 lg:mt-8">
+      <Link
+        href="/apply/designer"
+        className="flex aspect-[4/5] flex-col justify-between border border-line bg-noir p-6 text-paper transition-colors group-hover:border-paper/40 sm:aspect-[3/4]"
+      >
+        <span className="label text-paper/50">Apply</span>
+        <div>
+          <p className="font-display text-3xl leading-tight sm:text-4xl">
+            Present your
+            <br />
+            <span className="italic">house</span>
+          </p>
+          <p className="mt-4 max-w-xs font-grotesk text-sm leading-relaxed text-paper/60">
+            Jamrock is casting designers for the next edition. Submit your
+            work for consideration.
+          </p>
+          <span className="editorial-link mt-6 inline-block text-[0.7rem] text-paper">
+            Designer application
+          </span>
+        </div>
+      </Link>
+    </Reveal>
+  );
+}
+
 export function Designers() {
   return (
     <section
@@ -72,6 +99,7 @@ export function Designers() {
         {DESIGNERS.map((d, i) => (
           <Entry key={d.index} d={d} layout={LAYOUT[i]} />
         ))}
+        <ApplyBox />
       </div>
     </section>
   );

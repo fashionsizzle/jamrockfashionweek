@@ -17,6 +17,78 @@ export const NAV = [
   { label: "Press", href: "/press" },
 ] as const;
 
+export type ApplicationField = {
+  name: string;
+  label: string;
+  type: "text" | "email" | "tel" | "textarea";
+  required?: boolean;
+  autoComplete?: string;
+};
+
+export type ApplicationType = {
+  slug: string;
+  label: string;
+  short: string;
+  tagline: string;
+  description: string;
+  fields: ApplicationField[];
+};
+
+export const APPLICATIONS: ApplicationType[] = [
+  {
+    slug: "designer",
+    label: "Designer Application",
+    short: "Designer",
+    tagline: "Present a collection on the Kingston runway.",
+    description:
+      "Jamrock presents a limited number of houses each edition, drawn from across the island. Tell us about your work — we review every submission ahead of the calendar being set.",
+    fields: [
+      { name: "name", label: "Full name", type: "text", required: true, autoComplete: "name" },
+      { name: "email", label: "Email", type: "email", required: true, autoComplete: "email" },
+      { name: "brand", label: "Brand / label name", type: "text", required: true },
+      { name: "discipline", label: "Discipline", type: "text", required: true },
+      { name: "portfolio", label: "Portfolio or Instagram link", type: "text", required: true, autoComplete: "url" },
+      { name: "statement", label: "Collection statement", type: "textarea", required: true },
+    ],
+  },
+  {
+    slug: "model",
+    label: "Model Application",
+    short: "Model",
+    tagline: "Walk for the houses presenting this edition.",
+    description:
+      "We cast locally and from across the diaspora for every edition. Submit your details and a comp card or portfolio link and our casting team will be in touch.",
+    fields: [
+      { name: "name", label: "Full name", type: "text", required: true, autoComplete: "name" },
+      { name: "email", label: "Email", type: "email", required: true, autoComplete: "email" },
+      { name: "phone", label: "Phone", type: "tel", required: true, autoComplete: "tel" },
+      { name: "height", label: "Height", type: "text", required: true },
+      { name: "agency", label: "Agency (if represented)", type: "text" },
+      { name: "portfolio", label: "Comp card or portfolio link", type: "text", required: true, autoComplete: "url" },
+      { name: "note", label: "Note (optional)", type: "textarea" },
+    ],
+  },
+  {
+    slug: "stylist",
+    label: "Stylist Application",
+    short: "Stylist",
+    tagline: "Style a house for the week.",
+    description:
+      "Our houses work with a small team of stylists across the five evenings. Share your portfolio and availability and we'll match you to a show.",
+    fields: [
+      { name: "name", label: "Full name", type: "text", required: true, autoComplete: "name" },
+      { name: "email", label: "Email", type: "email", required: true, autoComplete: "email" },
+      { name: "portfolio", label: "Portfolio or Instagram link", type: "text", required: true, autoComplete: "url" },
+      { name: "experience", label: "Years of experience", type: "text", required: true },
+      { name: "note", label: "Note (optional)", type: "textarea" },
+    ],
+  },
+];
+
+export function getApplication(slug: string) {
+  return APPLICATIONS.find((a) => a.slug === slug);
+}
+
 export type Designer = {
   index: string;
   slug: string;

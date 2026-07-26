@@ -3,7 +3,7 @@
 import * as React from "react";
 import Link from "next/link";
 import { AnimatePresence, motion, useScroll } from "motion/react";
-import { NAV, EVENT } from "@/lib/content";
+import { NAV, EVENT, APPLICATIONS } from "@/lib/content";
 import { cn } from "@/lib/utils";
 
 function NavLink({
@@ -28,6 +28,102 @@ function NavLink({
     <Link href={href} className={className} onClick={onClick}>
       {children}
     </Link>
+  );
+}
+
+function ApplyDropdown({ onDark }: { onDark: boolean }) {
+  const [open, setOpen] = React.useState(false);
+  const ref = React.useRef<HTMLDivElement>(null);
+
+  React.useEffect(() => {
+    if (!open) return;
+    const onClick = (e: MouseEvent) => {
+      if (ref.current && !ref.current.contains(e.target as Node)) {
+        setOpen(false);
+      }
+    };
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setOpen(false);
+    };
+    document.addEventListener("click", onClick);
+    document.addEventListener("keydown", onKey);
+    return () => {
+      document.removeEventListener("click", onClick);
+      document.removeEventListener("keydown", onKey);
+    };
+  }, [open]);
+
+  return (
+    <div
+      ref={ref}
+      className="relative"
+      onMouseEnter={() => setOpen(true)}
+      onMouseLeave={() => setOpen(false)}
+    >
+      <button
+        type="button"
+        onClick={() => setOpen((v) => !v)}
+        aria-expanded={open}
+        aria-haspopup="menu"
+        className={cn(
+          "flex items-center gap-1.5 font-grotesk text-xs font-semibold uppercase tracking-[0.16em] transition-colors",
+          onDark
+            ? "text-paper/65 hover:text-paper"
+            : "text-ink-soft hover:text-ink",
+        )}
+      >
+        Apply
+        <svg
+          width="9"
+          height="6"
+          viewBox="0 0 9 6"
+          fill="none"
+          aria-hidden
+          className={cn("transition-transform", open && "rotate-180")}
+        >
+          <path
+            d="M1 1L4.5 4.5L8 1"
+            stroke="currentColor"
+            strokeWidth="1.2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </svg>
+      </button>
+
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            role="menu"
+            initial={{ opacity: 0, y: -6 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -6 }}
+            transition={{ duration: 0.18 }}
+            className="absolute left-1/2 top-full z-10 mt-3 w-64 -translate-x-1/2 border border-line bg-paper py-2 text-ink shadow-[0_20px_40px_-12px_rgba(0,0,0,0.18)]"
+          >
+            {APPLICATIONS.map((a) => (
+              <Link
+                key={a.slug}
+                href={`/apply/${a.slug}`}
+                role="menuitem"
+                onClick={() => setOpen(false)}
+                className="block px-5 py-3 font-display text-lg leading-none transition-colors hover:bg-ink/5"
+              >
+                {a.label}
+              </Link>
+            ))}
+            <Link
+              href="/apply"
+              role="menuitem"
+              onClick={() => setOpen(false)}
+              className="block border-t border-line px-5 py-3 font-grotesk text-xs uppercase tracking-[0.18em] text-ink-faint transition-colors hover:text-ink"
+            >
+              All applications
+            </Link>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
   );
 }
 
@@ -158,6 +254,7 @@ export function Header() {
                 {item.label}
               </NavLink>
             ))}
+            <ApplyDropdown onDark={onDark} />
             <a
               href="#rsvp"
               className={cn("editorial-link", onDark && "text-paper")}
@@ -202,7 +299,14 @@ export function Header() {
             </div>
 
             <nav className="mt-12 flex flex-col gap-2 px-6 sm:px-10">
-              {[...NAV, { label: "RSVP", href: "#rsvp" }].map((item, i) => (
+              {[
+                ...NAV,
+                ...APPLICATIONS.map((a) => ({
+                  label: `Apply — ${a.short}`,
+                  href: `/apply/${a.slug}`,
+                })),
+                { label: "RSVP", href: "#rsvp" },
+              ].map((item, i) => (
                 <motion.div
                   key={item.href}
                   initial={{ opacity: 0, y: 20 }}

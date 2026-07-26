@@ -15,10 +15,11 @@ export function Manifesto() {
           <div className="lg:col-span-9">
             <Reveal>
               <p className="font-display text-3xl leading-[1.18] tracking-[-0.01em] sm:text-4xl lg:text-[2.9rem]">
-                Jamrock began as a single show on a Kingston lawn. It is now the
-                week the Caribbean keeps for itself — a runway for the people
-                who cut, dye, weave and finish the clothes, presented in the
-                rooms and gardens of the city that raised them.
+                Jamrock&apos;s journey started on the runways of New York
+                City. Our aspiration is to establish that same platform in
+                Jamaica, where the island&apos;s designers, artisans and
+                makers can present their work in the city that shaped their
+                creative vision.
               </p>
             </Reveal>
 

@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Playfair_Display } from "next/font/google";
 import { EventJsonLd } from "@/components/seo/event-jsonld";
+import { NewsletterPopup } from "@/components/site/newsletter-popup";
 import { SITE_URL } from "@/lib/site";
 import "./globals.css";
 
@@ -44,6 +45,7 @@ export default function RootLayout({
           Skip to content
         </a>
         {children}
+        <NewsletterPopup />
         <EventJsonLd />
       </body>
     </html>
