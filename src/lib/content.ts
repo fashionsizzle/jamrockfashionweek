@@ -155,8 +155,8 @@ export type Day = { date: string; day: string; shows: Show[] };
 
 export const SCHEDULE: Day[] = [
   {
-    date: "11 Nov",
-    day: "Wednesday",
+    date: "TBA",
+    day: "Day 1",
     shows: [
       { time: "18:00", title: "Opening Address", venue: "Devon House", tag: "Ceremony" },
       { time: "19:30", title: "Anaya Clarke", venue: "Devon House Lawn", tag: "Runway" },
@@ -164,8 +164,8 @@ export const SCHEDULE: Day[] = [
     ],
   },
   {
-    date: "12 Nov",
-    day: "Thursday",
+    date: "TBA",
+    day: "Day 2",
     shows: [
       { time: "17:00", title: "Graduate Showcase", venue: "Edna Manley College", tag: "Presentation" },
       { time: "19:00", title: "Devon Marsh", venue: "Hope Gardens", tag: "Runway" },
@@ -173,8 +173,8 @@ export const SCHEDULE: Day[] = [
     ],
   },
   {
-    date: "13 Nov",
-    day: "Friday",
+    date: "TBA",
+    day: "Day 3",
     shows: [
       { time: "18:30", title: "Imani Rose Studio", venue: "National Gallery", tag: "Installation" },
       { time: "20:00", title: "Soraya Bennett", venue: "Ward Theatre", tag: "Runway" },
@@ -182,8 +182,8 @@ export const SCHEDULE: Day[] = [
     ],
   },
   {
-    date: "14 Nov",
-    day: "Saturday",
+    date: "TBA",
+    day: "Day 4",
     shows: [
       { time: "16:00", title: "Trade Day", venue: "Kingston Creative", tag: "Industry" },
       { time: "19:00", title: "House of Pinnacle", venue: "Emancipation Park", tag: "Runway" },
@@ -191,8 +191,8 @@ export const SCHEDULE: Day[] = [
     ],
   },
   {
-    date: "15 Nov",
-    day: "Sunday",
+    date: "TBA",
+    day: "Day 5",
     shows: [
       { time: "11:00", title: "Archive Brunch", venue: "Devon House", tag: "Industry" },
       { time: "18:00", title: "Closing Collection", venue: "Devon House Lawn", tag: "Runway" },

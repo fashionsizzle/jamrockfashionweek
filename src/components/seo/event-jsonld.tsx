@@ -6,8 +6,8 @@ import { SITE_URL } from "@/lib/site";
  * to enrich search results and event listings.
  */
 export function EventJsonLd() {
-  const subEvents = SCHEDULE.flatMap((day) => {
-    const dd = String(parseInt(day.date, 10)).padStart(2, "0");
+  const subEvents = SCHEDULE.flatMap((day, i) => {
+    const dd = String(i + 11).padStart(2, "0");
     return day.shows.map((show) => ({
       "@type": "Event",
       name: show.title,

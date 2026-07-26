@@ -19,7 +19,7 @@ export function Schedule() {
       <div className="mt-16">
         {SCHEDULE.map((day) => (
           <Reveal
-            key={day.date}
+            key={day.day}
             className="grid grid-cols-1 gap-x-8 border-t border-line py-10 lg:grid-cols-12"
           >
             <div className="mb-6 lg:col-span-3 lg:mb-0">
