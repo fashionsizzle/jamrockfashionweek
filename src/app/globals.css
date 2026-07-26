@@ -5,8 +5,8 @@
 /*  Bone paper, warm ink, hairline rules, film grain. No gradients.    */
 /* ================================================================== */
 @theme {
-  --color-paper: #f2efe9;
-  --color-paper-dim: #e9e5dd;
+  --color-paper: #ffffff;
+  --color-paper-dim: #f2f2f2;
   --color-ink: #16130f;
   --color-ink-soft: #4b463f;
   --color-ink-faint: #8c867b;

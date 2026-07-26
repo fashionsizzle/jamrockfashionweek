@@ -24,11 +24,11 @@ export const metadata: Metadata = {
     template: "%s — Jamrock Fashion Week",
   },
   description:
-    "An archive of the runway in Kingston. Five evenings of Caribbean design, presented across the city. 11–15 November 2026.",
+    "An archive of the runway in Kingston. Five evenings of Caribbean design, presented across the city. Dates: TBA.",
   openGraph: {
     title: "Jamrock Fashion Week — Kingston",
     description:
-      "Five evenings of Caribbean design, presented across Kingston. 11–15 November 2026.",
+      "Five evenings of Caribbean design, presented across Kingston. Dates: TBA.",
     type: "website",
     locale: "en_JM",
   },

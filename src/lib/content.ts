@@ -1,6 +1,6 @@
 export const EVENT = {
   edition: "Eighth Edition",
-  dates: "11–15 November 2026",
+  dates: "TBA",
   city: "Kingston, Jamaica",
   year: "2026",
   startISO: "2026-11-11",
@@ -302,7 +302,7 @@ export const VENUES: Venue[] = [
 export const TICKER = [
   "Jamrock Fashion Week",
   "Kingston, Jamaica",
-  "11–15 November 2026",
+  "TBA",
   "Eighth Edition",
   "Invitation only",
 ];
