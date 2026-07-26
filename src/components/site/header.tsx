@@ -3,7 +3,7 @@
 import * as React from "react";
 import Link from "next/link";
 import { AnimatePresence, motion, useScroll } from "motion/react";
-import { NAV, EVENT, APPLICATIONS, CONTACT, OFFICES } from "@/lib/content";
+import { NAV, EVENT, APPLICATIONS, CONTACT, SCHEDULE_MENU } from "@/lib/content";
 import { cn } from "@/lib/utils";
 
 function NavLink({
@@ -259,18 +259,26 @@ export function Header() {
 
           <nav className="hidden items-center gap-9 md:flex">
             {NAV.map((item) => (
-              <NavLink
-                key={item.href}
-                href={item.href}
-                className={cn(
-                  "font-grotesk text-xs font-semibold uppercase tracking-[0.16em] transition-colors",
-                  onDark
-                    ? "text-paper/65 hover:text-paper"
-                    : "text-ink-soft hover:text-ink",
+              <React.Fragment key={item.href}>
+                <NavLink
+                  href={item.href}
+                  className={cn(
+                    "font-grotesk text-xs font-semibold uppercase tracking-[0.16em] transition-colors",
+                    onDark
+                      ? "text-paper/65 hover:text-paper"
+                      : "text-ink-soft hover:text-ink",
+                  )}
+                >
+                  {item.label}
+                </NavLink>
+                {item.label === "About" && (
+                  <NavDropdown
+                    label="Schedule"
+                    items={SCHEDULE_MENU}
+                    onDark={onDark}
+                  />
                 )}
-              >
-                {item.label}
-              </NavLink>
+              </React.Fragment>
             ))}
             <NavDropdown
               label="Apply"
@@ -284,15 +292,7 @@ export function Header() {
             />
             <NavDropdown
               label="Contact"
-              items={[
-                ...CONTACT,
-                ...OFFICES.map((o) => ({
-                  label: o.city,
-                  href: `/contact#${o.slug}`,
-                })),
-              ]}
-              allHref="/contact"
-              allLabel="All offices"
+              items={[...CONTACT, { label: "Office", href: "/contact" }]}
               onDark={onDark}
             />
           </nav>
@@ -335,6 +335,7 @@ export function Header() {
             <nav className="mt-12 flex flex-col gap-2 px-6 sm:px-10">
               {[
                 ...NAV,
+                ...SCHEDULE_MENU,
                 ...APPLICATIONS.map((a) => ({
                   label: `Apply — ${a.short}`,
                   href: `/apply/${a.slug}`,
@@ -343,10 +344,7 @@ export function Header() {
                   label: `Contact — ${c.label}`,
                   href: c.href,
                 })),
-                ...OFFICES.map((o) => ({
-                  label: `Contact — ${o.city}`,
-                  href: `/contact#${o.slug}`,
-                })),
+                { label: "Contact — Office", href: "/contact" },
               ].map((item, i) => (
                 <motion.div
                   key={item.href}

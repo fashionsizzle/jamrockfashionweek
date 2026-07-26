@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { EVENT, NAV, APPLICATIONS, CONTACT, OFFICES } from "@/lib/content";
+import { EVENT, NAV, APPLICATIONS, CONTACT, SCHEDULE_MENU } from "@/lib/content";
 import { NewsletterTrigger } from "@/components/site/newsletter-popup";
 
 const SOCIAL = [
@@ -37,7 +37,7 @@ export function Footer() {
               Index
             </p>
             <ul className="mt-5 space-y-3">
-              {NAV.map((n) => (
+              {[...NAV, ...SCHEDULE_MENU].map((n) => (
                 <li key={n.href}>
                   <Link
                     href={n.href}
@@ -94,16 +94,14 @@ export function Footer() {
                   </li>
                 ),
               )}
-              {OFFICES.map((o) => (
-                <li key={o.slug}>
-                  <Link
-                    href={`/contact#${o.slug}`}
-                    className="font-display text-xl text-paper/85 transition-colors hover:text-paper"
-                  >
-                    {o.city}
-                  </Link>
-                </li>
-              ))}
+              <li>
+                <Link
+                  href="/contact"
+                  className="font-display text-xl text-paper/85 transition-colors hover:text-paper"
+                >
+                  Office
+                </Link>
+              </li>
             </ul>
           </nav>
 

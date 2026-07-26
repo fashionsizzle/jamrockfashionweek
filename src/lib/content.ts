@@ -10,16 +10,17 @@ export const EVENT = {
 };
 
 export const NAV = [
-  { label: "Shows", href: "#shows" },
-  { label: "Designers", href: "#designers" },
-  { label: "Looks", href: "#looks" },
-  { label: "Schedule", href: "/schedule" },
-] as const;
-
-export const CONTACT = [
-  { label: "RSVP", href: "#rsvp" },
+  { label: "Home", href: "/" },
+  { label: "About", href: "/about" },
   { label: "Press", href: "/press" },
 ] as const;
+
+export const SCHEDULE_MENU = [
+  { label: "Schedule", href: "/schedule" },
+  { label: "City", href: "/city" },
+] as const;
+
+export const CONTACT = [{ label: "RSVP", href: "#rsvp" }] as const;
 
 export type Office = {
   slug: string;
