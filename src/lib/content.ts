@@ -14,8 +14,44 @@ export const NAV = [
   { label: "Designers", href: "#designers" },
   { label: "Looks", href: "#looks" },
   { label: "Schedule", href: "/schedule" },
+] as const;
+
+export const CONTACT = [
+  { label: "RSVP", href: "#rsvp" },
   { label: "Press", href: "/press" },
 ] as const;
+
+export type Office = {
+  slug: string;
+  city: string;
+  region: string;
+  email: string;
+  note: string;
+};
+
+export const OFFICES: Office[] = [
+  {
+    slug: "kingston",
+    city: "Kingston",
+    region: "Jamaica",
+    email: "kingston@jamrockfashionweek.com",
+    note: "Head office — production, casting, and the runway calendar.",
+  },
+  {
+    slug: "new-york",
+    city: "New York City",
+    region: "United States",
+    email: "newyork@jamrockfashionweek.com",
+    note: "Press, international partnerships, and accreditation.",
+  },
+  {
+    slug: "london",
+    city: "London",
+    region: "United Kingdom",
+    email: "london@jamrockfashionweek.com",
+    note: "European press and buyer relations.",
+  },
+];
 
 export type ApplicationField = {
   name: string;

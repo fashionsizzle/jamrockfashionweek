@@ -24,10 +24,18 @@ export function Manifesto() {
             </Reveal>
 
             <Reveal delay={0.1}>
-              <p className="mt-8 max-w-2xl font-grotesk text-base leading-relaxed text-ink-soft">
-                No imported headliners, no borrowed format. Each November the
-                houses return, the graduates arrive, and the editors fly in to
-                see what the island has made. What follows is the record of it.
+              <p className="mt-8 max-w-3xl font-grotesk text-base leading-relaxed text-ink-soft">
+                Jamrock Fashion Society presents Jamrock Fashion Week—the
+                global runway where island culture takes center stage.
+                Whether in Jamaica, New York, London, or wherever the
+                Caribbean spirit finds its audience, Jamrock is a celebration
+                of the makers, the music, the movement, and the style that
+                define the islands. Rooted in heritage yet made for the
+                world, it brings together designers, artisans, creatives,
+                editors, buyers, and cultural leaders to experience the
+                evolution of Caribbean fashion. This is more than a fashion
+                week. It is the world&apos;s stage for island creativity.
+                What follows is its story.
               </p>
             </Reveal>
           </div>

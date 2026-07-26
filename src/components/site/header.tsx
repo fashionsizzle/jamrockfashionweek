@@ -3,35 +3,51 @@
 import * as React from "react";
 import Link from "next/link";
 import { AnimatePresence, motion, useScroll } from "motion/react";
-import { NAV, EVENT, APPLICATIONS } from "@/lib/content";
+import { NAV, EVENT, APPLICATIONS, CONTACT, OFFICES } from "@/lib/content";
 import { cn } from "@/lib/utils";
 
 function NavLink({
   href,
   className,
   onClick,
+  role,
   children,
 }: {
   href: string;
   className?: string;
   onClick?: () => void;
+  role?: string;
   children: React.ReactNode;
 }) {
   if (href.startsWith("#")) {
     return (
-      <a href={href} className={className} onClick={onClick}>
+      <a href={href} className={className} onClick={onClick} role={role}>
         {children}
       </a>
     );
   }
   return (
-    <Link href={href} className={className} onClick={onClick}>
+    <Link href={href} className={className} onClick={onClick} role={role}>
       {children}
     </Link>
   );
 }
 
-function ApplyDropdown({ onDark }: { onDark: boolean }) {
+type DropdownItem = { label: string; href: string };
+
+function NavDropdown({
+  label,
+  items,
+  allHref,
+  allLabel,
+  onDark,
+}: {
+  label: string;
+  items: readonly DropdownItem[];
+  allHref?: string;
+  allLabel?: string;
+  onDark: boolean;
+}) {
   const [open, setOpen] = React.useState(false);
   const ref = React.useRef<HTMLDivElement>(null);
 
@@ -72,7 +88,7 @@ function ApplyDropdown({ onDark }: { onDark: boolean }) {
             : "text-ink-soft hover:text-ink",
         )}
       >
-        Apply
+        {label}
         <svg
           width="9"
           height="6"
@@ -101,25 +117,27 @@ function ApplyDropdown({ onDark }: { onDark: boolean }) {
             transition={{ duration: 0.18 }}
             className="absolute left-1/2 top-full z-10 mt-3 w-64 -translate-x-1/2 border border-line bg-paper py-2 text-ink shadow-[0_20px_40px_-12px_rgba(0,0,0,0.18)]"
           >
-            {APPLICATIONS.map((a) => (
-              <Link
-                key={a.slug}
-                href={`/apply/${a.slug}`}
+            {items.map((item) => (
+              <NavLink
+                key={item.href}
+                href={item.href}
                 role="menuitem"
                 onClick={() => setOpen(false)}
                 className="block px-5 py-3 font-display text-lg leading-none transition-colors hover:bg-ink/5"
               >
-                {a.label}
-              </Link>
+                {item.label}
+              </NavLink>
             ))}
-            <Link
-              href="/apply"
-              role="menuitem"
-              onClick={() => setOpen(false)}
-              className="block border-t border-line px-5 py-3 font-grotesk text-xs uppercase tracking-[0.18em] text-ink-faint transition-colors hover:text-ink"
-            >
-              All applications
-            </Link>
+            {allHref && (
+              <Link
+                href={allHref}
+                role="menuitem"
+                onClick={() => setOpen(false)}
+                className="block border-t border-line px-5 py-3 font-grotesk text-xs uppercase tracking-[0.18em] text-ink-faint transition-colors hover:text-ink"
+              >
+                {allLabel}
+              </Link>
+            )}
           </motion.div>
         )}
       </AnimatePresence>
@@ -254,13 +272,29 @@ export function Header() {
                 {item.label}
               </NavLink>
             ))}
-            <ApplyDropdown onDark={onDark} />
-            <a
-              href="#rsvp"
-              className={cn("editorial-link", onDark && "text-paper")}
-            >
-              RSVP
-            </a>
+            <NavDropdown
+              label="Apply"
+              items={APPLICATIONS.map((a) => ({
+                label: a.label,
+                href: `/apply/${a.slug}`,
+              }))}
+              allHref="/apply"
+              allLabel="All applications"
+              onDark={onDark}
+            />
+            <NavDropdown
+              label="Contact"
+              items={[
+                ...CONTACT,
+                ...OFFICES.map((o) => ({
+                  label: o.city,
+                  href: `/contact#${o.slug}`,
+                })),
+              ]}
+              allHref="/contact"
+              allLabel="All offices"
+              onDark={onDark}
+            />
           </nav>
 
           <button
@@ -305,7 +339,14 @@ export function Header() {
                   label: `Apply — ${a.short}`,
                   href: `/apply/${a.slug}`,
                 })),
-                { label: "RSVP", href: "#rsvp" },
+                ...CONTACT.map((c) => ({
+                  label: `Contact — ${c.label}`,
+                  href: c.href,
+                })),
+                ...OFFICES.map((o) => ({
+                  label: `Contact — ${o.city}`,
+                  href: `/contact#${o.slug}`,
+                })),
               ].map((item, i) => (
                 <motion.div
                   key={item.href}

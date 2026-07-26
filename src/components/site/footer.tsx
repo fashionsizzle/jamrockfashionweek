@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { EVENT, NAV, APPLICATIONS } from "@/lib/content";
+import { EVENT, NAV, APPLICATIONS, CONTACT, OFFICES } from "@/lib/content";
 import { NewsletterTrigger } from "@/components/site/newsletter-popup";
 
 const SOCIAL = [
@@ -19,7 +19,7 @@ export function Footer() {
     <footer data-theme="dark" className="bg-noir text-paper">
       <div className="mx-auto max-w-[1400px] px-6 sm:px-10">
         <div className="grid grid-cols-1 gap-y-12 border-t border-white/15 py-16 sm:grid-cols-2 lg:grid-cols-12">
-          <div className="lg:col-span-4">
+          <div className="lg:col-span-3">
             <p className="font-display text-4xl leading-none">
               Jamrock
               <span className="block text-base italic text-paper/60">
@@ -32,36 +32,25 @@ export function Footer() {
             </p>
           </div>
 
-          <nav className="lg:col-span-2 lg:col-start-6">
+          <nav className="lg:col-span-2 lg:col-start-5">
             <p className="font-grotesk text-xs uppercase tracking-[0.2em] text-paper/40">
               Index
             </p>
             <ul className="mt-5 space-y-3">
-              {[...NAV, { label: "RSVP", href: "#rsvp" }].map((n) =>
-                n.href.startsWith("#") ? (
-                  <li key={n.href}>
-                    <a
-                      href={n.href}
-                      className="font-display text-xl text-paper/85 transition-colors hover:text-paper"
-                    >
-                      {n.label}
-                    </a>
-                  </li>
-                ) : (
-                  <li key={n.href}>
-                    <Link
-                      href={n.href}
-                      className="font-display text-xl text-paper/85 transition-colors hover:text-paper"
-                    >
-                      {n.label}
-                    </Link>
-                  </li>
-                ),
-              )}
+              {NAV.map((n) => (
+                <li key={n.href}>
+                  <Link
+                    href={n.href}
+                    className="font-display text-xl text-paper/85 transition-colors hover:text-paper"
+                  >
+                    {n.label}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </nav>
 
-          <nav className="lg:col-span-2 lg:col-start-8">
+          <nav className="lg:col-span-2 lg:col-start-7">
             <p className="font-grotesk text-xs uppercase tracking-[0.2em] text-paper/40">
               Apply
             </p>
@@ -79,7 +68,46 @@ export function Footer() {
             </ul>
           </nav>
 
-          <div className="lg:col-span-2 lg:col-start-10">
+          <nav className="lg:col-span-2 lg:col-start-9">
+            <p className="font-grotesk text-xs uppercase tracking-[0.2em] text-paper/40">
+              Contact
+            </p>
+            <ul className="mt-5 space-y-3">
+              {CONTACT.map((c) =>
+                c.href.startsWith("#") ? (
+                  <li key={c.href}>
+                    <a
+                      href={c.href}
+                      className="font-display text-xl text-paper/85 transition-colors hover:text-paper"
+                    >
+                      {c.label}
+                    </a>
+                  </li>
+                ) : (
+                  <li key={c.href}>
+                    <Link
+                      href={c.href}
+                      className="font-display text-xl text-paper/85 transition-colors hover:text-paper"
+                    >
+                      {c.label}
+                    </Link>
+                  </li>
+                ),
+              )}
+              {OFFICES.map((o) => (
+                <li key={o.slug}>
+                  <Link
+                    href={`/contact#${o.slug}`}
+                    className="font-display text-xl text-paper/85 transition-colors hover:text-paper"
+                  >
+                    {o.city}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
+
+          <div className="lg:col-span-2 lg:col-start-11">
             <p className="font-grotesk text-xs uppercase tracking-[0.2em] text-paper/40">
               Follow
             </p>

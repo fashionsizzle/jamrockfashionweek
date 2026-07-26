@@ -100,7 +100,11 @@ export function Hero() {
             </div>
             <div className="flex items-baseline gap-3">
               <dt className="label text-paper/55">Location</dt>
-              <dd className="font-display text-xl">{EVENT.city}</dd>
+              <dd className="font-display text-xl">
+                <Link href="/contact" className="underline-offset-4 hover:underline">
+                  {EVENT.city}
+                </Link>
+              </dd>
             </div>
             <div className="hidden items-baseline gap-3 sm:flex">
               <dt className="label text-paper/55">Status</dt>

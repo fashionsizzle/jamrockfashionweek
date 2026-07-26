@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import Link from "next/link";
 import { motion, AnimatePresence } from "motion/react";
 import { EVENT } from "@/lib/content";
 
@@ -87,7 +88,14 @@ export function Rsvp() {
                 <dt className="w-28 shrink-0 font-grotesk text-xs uppercase tracking-[0.2em] text-paper/45">
                   Where
                 </dt>
-                <dd className="font-display text-xl">{EVENT.city}</dd>
+                <dd className="font-display text-xl">
+                  <Link
+                    href="/contact"
+                    className="underline-offset-4 hover:underline"
+                  >
+                    {EVENT.city}
+                  </Link>
+                </dd>
               </div>
               <div className="flex items-baseline gap-4 border-t border-white/15 pt-4">
                 <dt className="w-28 shrink-0 font-grotesk text-xs uppercase tracking-[0.2em] text-paper/45">
