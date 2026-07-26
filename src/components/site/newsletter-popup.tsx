@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import { motion, AnimatePresence } from "motion/react";
+import { Plate } from "@/components/plate";
 
 const STORAGE_KEY = "jamrock-newsletter-seen";
 const DELAY_MS = 6000;
@@ -114,74 +115,83 @@ export function NewsletterPopup() {
             exit={{ opacity: 0, y: 16, scale: 0.98 }}
             transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
             onClick={(e) => e.stopPropagation()}
-            className="relative w-full max-w-md border border-white/15 bg-noir p-8 text-paper sm:p-10"
+            className="relative grid w-full max-w-3xl grid-cols-1 border border-white/15 bg-noir text-paper sm:grid-cols-[minmax(0,0.85fr)_minmax(0,1fr)]"
           >
-            <button
-              type="button"
-              onClick={dismiss}
-              aria-label="Close"
-              className="absolute right-5 top-5 font-grotesk text-xs uppercase tracking-[0.2em] text-paper/50 transition-colors hover:text-paper"
-            >
-              Close
-            </button>
+            <Plate
+              tone="noir"
+              index="01"
+              caption="Kingston, runway"
+              className="hidden aspect-[3/4] w-full sm:block"
+            />
 
-            {sent ? (
-              <div className="pt-6">
-                <p className="font-display text-3xl leading-tight">
-                  You&apos;re on the list.
-                </p>
-                <p className="mt-4 font-grotesk text-sm leading-relaxed text-paper/60">
-                  We&apos;ll email you when the schedule and accreditation
-                  open.
-                </p>
-              </div>
-            ) : (
-              <>
-                <p className="label text-paper/45">Stay informed</p>
-                <p className="mt-4 font-display text-3xl leading-tight sm:text-4xl">
-                  Get the calendar
-                  <br />
-                  <span className="italic">before it&apos;s public.</span>
-                </p>
-                <p className="mt-4 max-w-sm font-grotesk text-sm leading-relaxed text-paper/60">
-                  Join the list for schedule announcements, designer
-                  reveals, and accreditation windows.
-                </p>
+            <div className="relative p-8 sm:p-10">
+              <button
+                type="button"
+                onClick={dismiss}
+                aria-label="Close"
+                className="absolute right-5 top-5 font-grotesk text-xs uppercase tracking-[0.2em] text-paper/50 transition-colors hover:text-paper"
+              >
+                Close
+              </button>
 
-                <form
-                  name="newsletter"
-                  data-netlify="true"
-                  onSubmit={onSubmit}
-                  className="mt-8 flex flex-col gap-4 sm:flex-row sm:items-end"
-                >
-                  <input type="hidden" name="form-name" value="newsletter" />
-                  <label className="block flex-1">
-                    <span className="font-grotesk text-xs uppercase tracking-[0.2em] text-paper/45">
-                      Email
-                    </span>
-                    <input
-                      required
-                      name="email"
-                      type="email"
-                      autoComplete="email"
-                      className="mt-3 w-full border-b border-white/25 bg-transparent pb-3 font-display text-xl text-paper outline-none transition-colors placeholder:text-paper/25 focus:border-paper"
-                    />
-                  </label>
-                  <button
-                    type="submit"
-                    disabled={pending}
-                    className="group inline-flex shrink-0 items-center gap-3 pb-3 disabled:opacity-50"
+              {sent ? (
+                <div className="pt-6">
+                  <p className="font-display text-3xl leading-tight">
+                    You&apos;re on the list.
+                  </p>
+                  <p className="mt-4 font-grotesk text-sm leading-relaxed text-paper/60">
+                    We&apos;ll email you when the schedule and accreditation
+                    open.
+                  </p>
+                </div>
+              ) : (
+                <>
+                  <p className="label text-paper/45">Stay informed</p>
+                  <p className="mt-4 font-display text-3xl leading-tight sm:text-4xl">
+                    Get the calendar
+                    <br />
+                    <span className="italic">before it&apos;s public.</span>
+                  </p>
+                  <p className="mt-4 max-w-sm font-grotesk text-sm leading-relaxed text-paper/60">
+                    Join the list for schedule announcements, designer
+                    reveals, and accreditation windows.
+                  </p>
+
+                  <form
+                    name="newsletter"
+                    data-netlify="true"
+                    onSubmit={onSubmit}
+                    className="mt-8 flex flex-col gap-4"
                   >
-                    <span className="font-grotesk text-xs font-semibold uppercase tracking-[0.2em]">
-                      {pending ? "Sending…" : "Subscribe"}
-                    </span>
-                    <span className="inline-block transition-transform duration-500 group-hover:translate-x-2">
-                      →
-                    </span>
-                  </button>
-                </form>
-              </>
-            )}
+                    <input type="hidden" name="form-name" value="newsletter" />
+                    <label className="block">
+                      <span className="font-grotesk text-xs uppercase tracking-[0.2em] text-paper/45">
+                        Email
+                      </span>
+                      <input
+                        required
+                        name="email"
+                        type="email"
+                        autoComplete="email"
+                        className="mt-3 w-full border-b border-white/25 bg-transparent pb-3 font-display text-xl text-paper outline-none transition-colors placeholder:text-paper/25 focus:border-paper"
+                      />
+                    </label>
+                    <button
+                      type="submit"
+                      disabled={pending}
+                      className="group inline-flex shrink-0 items-center gap-3 pt-2 disabled:opacity-50"
+                    >
+                      <span className="font-grotesk text-xs font-semibold uppercase tracking-[0.2em]">
+                        {pending ? "Sending…" : "Subscribe"}
+                      </span>
+                      <span className="inline-block transition-transform duration-500 group-hover:translate-x-2">
+                        →
+                      </span>
+                    </button>
+                  </form>
+                </>
+              )}
+            </div>
           </motion.div>
         </motion.div>
       )}
